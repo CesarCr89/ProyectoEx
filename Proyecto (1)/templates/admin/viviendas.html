@@ -1,0 +1,91 @@
+{% include 'admin/cabecera.html' %}
+<br/>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            
+            <div class="card">
+                <div class="card-header">
+                    Datos de la vivienda
+                </div>
+                <div class="card-body">
+                    <form action="/admin/viviendas/guardar" method="post" enctype="multipart/form-data">
+
+                        <div class="" method="post">
+                            <label for="txtNombre" class="form-label">Nombre:</label>
+                            <input type="text" class="form-control" name="txtNombre" id="txtNombre" aria-describedby="helpId" placeholder="Escriba el nombre de la vivienda"></label>
+                        </div>
+
+                        <div class="" method="post">
+                            <label for="txtImagen" class="form-label">Imagen:</label>
+                            <input type="file" class="form-control" name="txtImagen" id="txtImagen" aria-describedby="helpId" placeholder="Seleccione una imagen"></label>
+                        </div>
+
+                        <div class="" method="post">
+                            <label for="txtLocacion" class="form-label">Locacion:</label>
+                            <select class="form-control" name="txtLocacion" id="txtLocacion">
+                                <option>Seleccione una localidad</option>
+                                {% for localidad in localidades %}
+                                <option value="{{ localidad.Localidad }}">{{ localidad.Localidad }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+
+
+
+                    </form>
+
+
+                    
+                </div>
+                <div class="card-footer text-muted">
+                    
+                </div>
+            </div>
+            
+
+
+
+<!--tabla de registros-->
+        </div>
+        <div class="col-md-7">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th >ID</th>
+                            <th >NOMBRE</th>
+                            <th >IMAGEN</th>
+                            <th >LOCACION</th>
+                            <th >HABITANTES</th>
+                            <th >ACCIONES</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for vivienda in viviendas %}
+                        <tr>
+                            <td>{{ vivienda.id }}</td>
+                            <td>{{ vivienda.nombre }}</td>
+                            <td>{{ vivienda.imagen }}</td>
+                            <td>{{ vivienda.locacion}}</td>
+                            <td>{{ vivienda.habitantes }}</td>
+                            <td>
+                                <form method="post" action="/admin/viviendas/eliminar">
+                                    <input type="hidden" name="id" value="{{ vivienda.id }}">
+                                    <button class="btn btn-danger" type="submit">Eliminar</button>
+                                </form>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                       
+                    </tbody>
+                </table>
+        </div>
+    </div>
+</div>
+
+{% include 'admin/pie.html' %}
